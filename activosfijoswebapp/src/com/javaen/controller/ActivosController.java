@@ -131,13 +131,20 @@ public class ActivosController {
 	
 	@RequestMapping("/activo/edit")
 	public String editar(@RequestParam("id") String id, @RequestParam("serial") String serial,
-			@RequestParam("fechaBaja") String fechaBaja,
+			@RequestParam("fechaBaja") String fechaBaja, @RequestParam("fechaCompra") String fechaCompra,
 			Model model) {		
 		Activo a = this.activeService.getActivoById(Integer.parseInt(id));
 		a.setSerial(serial);
-		if(this.activeService.validarFechas(this.activeService.convertirStringToDate(fechaBaja), this.activeService.getFechaHoraSistema())){
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("La fecha de Baja no puede ser mayor a la fecha del sistema.").toString();	
+		if(fechaCompra != null && !fechaCompra.isEmpty() && fechaBaja != null && !fechaBaja.isEmpty()){
+		    if(!this.activeService.validarFechas(this.activeService.convertirStringToDate(fechaCompra), this.activeService.convertirStringToDate(fechaBaja))){
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("La fecha de Baja no puede ser menor que la fecha de compra.").toString();	
+			}
 		}
+		if(fechaBaja != null && !fechaBaja.isEmpty()){
+			if(!this.activeService.validarFechas(this.activeService.convertirStringToDate(fechaBaja), this.activeService.getFechaHoraSistema())){
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body("La fecha de Baja no puede ser mayor a la fecha del sistema.").toString();	
+			}
+		}		
 		a.setFechaBaja(this.activeService.convertirStringToDate(fechaBaja));		
 		this.activeService.updateActivo(a);	   
 		return "redirect:/activos";
@@ -164,15 +171,16 @@ public class ActivosController {
 			Model model) {		
 		Filtro filtro = new Filtro();
 		
-		if(!this.activeService.validarFechas(this.activeService.convertirStringToDate(fechaCompra), this.activeService.getFechaHoraSistema())){
-			if(!fechaCompra.isEmpty()){
-				filtro.setFechaCompra(fechaCompra);
+		if(fechaCompra != null && !fechaCompra.isEmpty()){
+			if(!this.activeService.validarFechas(this.activeService.convertirStringToDate(fechaCompra), this.activeService.getFechaHoraSistema())){				
+				filtro.setFechaCompra(fechaCompra);				
 			}	
-		}		
-		if(!serial.isEmpty()){
+		}
+			
+		if(serial != null && !serial.isEmpty()){
 			filtro.setSerial(serial);
 		}
-		if(!tipo.isEmpty()){
+		if(tipo != null && !tipo.isEmpty()){
 			filtro.setTipo(tipo);
 		}		
 		
