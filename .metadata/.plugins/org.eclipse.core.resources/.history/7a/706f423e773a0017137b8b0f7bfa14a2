@@ -1,0 +1,17 @@
+package com.javaen.enumerated;
+
+public enum Estados {
+  
+	D ("DISPONIBLE"), 
+    A ("ACTIVO"),
+    R("EN REPARACION"),
+    B ("DE BADA"),
+    AS ("ASIGNADO");
+		
+	private final String estado;
+	
+	public Estados (String estado) { 
+        this.estado = estado;        
+    } 
+	
+}

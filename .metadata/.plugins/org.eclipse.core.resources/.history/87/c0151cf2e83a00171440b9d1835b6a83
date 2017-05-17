@@ -1,0 +1,106 @@
+package com.javaen.services;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.javaen.model.Activo;
+import com.javaen.model.Filtro;
+import com.javaen.model.TipoActivo;
+import com.javaen.dao.ActivosDao;
+
+public class ActiveServiceImpl implements ActiveService {
+
+	@Autowired
+	private ActivosDao activoDAO;
+	
+	public void setActivoDAO(ActivosDao activosDao) {
+		this.activoDAO = activosDao;
+	}
+	
+	@Override
+	@Transactional
+	public void addActivo(Activo a) {
+		this.activoDAO.addActivo(a);		
+	}
+
+	@Override
+	@Transactional
+	public void updateActivo(Activo a) {
+		this.activoDAO.updateActivo(a);
+	}
+
+	@Override
+	@Transactional
+	public List<Activo> listActivos() {
+		return this.activoDAO.listActivos();
+	}
+
+	@Override
+	@Transactional
+	public Activo getActivoById(int id) {
+		return this.activoDAO.getActivoById(id);
+	}
+
+	@Override
+	@Transactional
+	public void removeActivo(int id) {
+		this.activoDAO.removeActivo(id);		
+	}
+
+	@Override
+	@Transactional
+	public List<TipoActivo> listTipoActivos() {
+		return this.activoDAO.listTipoActivos();
+	}
+	
+	@Override
+	@Transactional
+	public Activo getActivoByName(String name) {
+		return this.activoDAO.getActivoByName(name);
+	}
+	
+	@Override
+	@Transactional
+	public TipoActivo getTipoById(String id){
+		return this.activoDAO.getTipoById(id);
+	}
+	
+	@Override
+	@Transactional
+	public List<Activo> filtrar(Filtro filtro){
+		return this.activoDAO.filtrar(filtro);
+	}
+
+	@Override
+	public Date convertirStringToDate(String fecha) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");        
+		Date date = null;
+		if(fecha != null && !fecha.isEmpty()){
+			try {
+	            date = formatter.parse(fecha);
+	            System.out.println(date);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			return date;
+		}
+        return null;
+	}
+
+	@Override
+	public boolean validarFechas(Date fechaDesde, Date fechaHasta) {		
+		return fechaDesde.before(fechaHasta);
+	}
+	
+	public Date getFechaHoraSistema(){		
+		DateFormat hourDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		return this.convertirStringToDate(hourDateFormat.format(new Date()));
+	}
+		
+}

@@ -1,0 +1,12 @@
+package com.javaen.dao;
+
+import java.io.Serializable;
+
+import org.springframework.stereotype.Repository;
+
+import com.javaen.generic.GenericHibernateDao;
+import com.javaen.model.TipoActivo;
+
+public interface TipoActivoDAO extends GenericHibernateDao<TipoActivo , Integer>  {
+
+}

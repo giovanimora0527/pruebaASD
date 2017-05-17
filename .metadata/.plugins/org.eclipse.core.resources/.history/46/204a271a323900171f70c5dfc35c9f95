@@ -1,0 +1,22 @@
+package com.javaen.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.javaen.dao.TipoActivoDao;
+import com.javaen.model.TipoActivo;
+
+@SuppressWarnings("serial")
+public class ActivoServicesImpl implements ActivosServices {
+	
+	@Autowired
+	private TipoActivoDao tipodao;
+
+    public List<TipoActivo> getTipoActivos() throws Exception{ 
+    	String query = "select * from tipo_activo";
+		return tipodao.findByQuery(query);			 
+	 }
+	 
+	 
+}

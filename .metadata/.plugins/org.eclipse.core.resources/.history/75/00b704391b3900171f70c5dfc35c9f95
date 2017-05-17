@@ -1,0 +1,10 @@
+package com.javaen.dao;
+
+import org.springframework.stereotype.Repository;
+
+import com.javaen.interfaces.Dao;
+
+@Repository
+public class TipoActivoDAO implements Dao {
+
+}

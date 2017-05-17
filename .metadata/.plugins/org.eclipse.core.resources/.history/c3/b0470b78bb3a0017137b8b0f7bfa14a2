@@ -1,0 +1,32 @@
+package com.javaen.model;
+
+import java.util.Date;
+
+public class Filtro {
+   
+	private String serial;
+	private Date fechaCompra;
+	private TipoActivo tipo;
+	
+	public Filtro(){}
+	
+	public String getSerial() {
+		return serial;
+	}
+	public void setSerial(String serial) {
+		this.serial = serial;
+	}
+	public Date getFechaCompra() {
+		return fechaCompra;
+	}
+	public void setFechaCompra(Date fechaCompra) {
+		this.fechaCompra = fechaCompra;
+	}
+	public TipoActivo getTipo() {
+		return tipo;
+	}
+	public void setTipo(TipoActivo tipo) {
+		this.tipo = tipo;
+	}
+	
+}

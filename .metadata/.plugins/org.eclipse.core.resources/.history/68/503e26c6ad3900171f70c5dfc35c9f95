@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"></link>
+<title>Activos Fijos</title>
+</head>
+<body>
+ <br>
+ <div class="container">
+    
+    <label>Aplicación para gestionar los Activos Fijos de la empresa</label>
+ <br> 
+ <table class="table table-bordered table-condensed table-stripped">
+    <tr>
+      <td align="center">
+        <a href="activos.htm" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Gestionar Activos</a>
+      </td>
+<!--       <td align="center"> -->
+<!--         <a href="actualizarActivos.htm" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Actualizar Activos</a> -->
+<!--       </td> -->
+<!--       <td align="center"> -->
+<!--        <a href="buscarActivos.htm" type="button" class="btn btn-primary"> <span class="glyphicon glyphicon-search"></span> Buscar Activos</a> -->
+<!--       </td> -->
+    </tr>
+ </table>
+ 
+ 
+ </div>
+ 
+</body>
+
+ <script src="webjars/jquery/3.2.0/jquery.js"></script>
+ <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+</html>

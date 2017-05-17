@@ -1,0 +1,14 @@
+package com.javaen.services;
+import java.util.List;
+
+import com.javaen.model.Activo;
+
+public interface ActiveService {
+  
+	public void addActivo(Activo a);
+	public void updateActivo(Activo a);
+	public List<Activo> listActivos();
+	public Activo getActivoById(int id);
+	public void removeActivo(int id);
+	
+}

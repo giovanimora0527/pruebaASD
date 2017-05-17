@@ -1,0 +1,39 @@
+package com.javaen.services;
+
+import java.util.List;
+
+import com.javaen.model.Activo;
+
+public class ActiveServiceImpl implements ActiveService {
+
+	@Override
+	public void addPerson(Activo a) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updatePerson(Activo a) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Activo> listPersons() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Activo getPersonById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removePerson(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

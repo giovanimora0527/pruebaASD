@@ -1,0 +1,8 @@
+package com.javaen.dao;
+
+import com.javaen.interfaces.Dao;
+
+@Repository
+public class TipoActivoDAO extends HibernateDaoSupport implements Dao {
+
+}

@@ -1,0 +1,5 @@
+package com.javaen.generic;
+
+public class GenericHibernateDaoImpl {
+
+}

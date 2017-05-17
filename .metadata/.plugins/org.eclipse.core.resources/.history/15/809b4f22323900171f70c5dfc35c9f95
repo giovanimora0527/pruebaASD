@@ -1,0 +1,13 @@
+package com.javaen.services;
+
+import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.List;
+
+import com.javaen.model.TipoActivo;
+
+public interface ActivosServices extends Serializable {   
+   
+    public List<TipoActivo> getTipoActivos() throws SQLException, Exception;
+    
+}

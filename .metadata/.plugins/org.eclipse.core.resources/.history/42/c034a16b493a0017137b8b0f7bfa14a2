@@ -1,0 +1,42 @@
+package com.javaen.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="estado_activo")
+public class Estado {
+
+	@Id
+	@Column(name="estado_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+	private int id;
+	
+	@Column(name="nombre")
+	private String nombre;
+	
+	public Estado(){};
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	
+}

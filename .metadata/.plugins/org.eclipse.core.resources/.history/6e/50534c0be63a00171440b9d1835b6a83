@@ -1,0 +1,179 @@
+/**
+ * 
+ */
+package com.javaen.controller;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.javaen.model.Activo;
+import com.javaen.model.Filtro;
+import com.javaen.model.TipoActivo;
+import com.javaen.services.ActiveService;
+
+/**
+ * @author giovanni-mora
+ *
+ */
+
+@Controller
+public class ActivosController {
+
+	protected final Log logger = LogFactory.getLog(getClass());
+	private ActiveService activeService;
+	
+	@Autowired(required = true)
+	@Qualifier(value = "activeService")
+	public void setActivoService(ActiveService as) {
+		this.activeService = as;
+	}
+
+	@RequestMapping(value = "/activos", method = RequestMethod.GET)
+	public String listActivos(Model model) {
+		this.populateComboTipoActivoList(model);
+		model.addAttribute("activo", new Activo());
+		model.addAttribute("listActivos", this.activeService.listActivos());
+		return "activo";
+	}
+
+	public void populateComboTipoActivoList(Model model) {
+
+		// LLenando el combo de tipo del activo
+		Map<String, String> activoList = new LinkedHashMap<String, String>();
+		List<TipoActivo> activos = this.activeService.listTipoActivos();
+		if (activos.size() > 0) {
+			for (TipoActivo o : activos) {
+				activoList.put("" + o.getId(), o.getTipo());
+			}
+			model.addAttribute("activoTipo", activoList);
+		}
+	}
+	
+	
+	// For add and update activo
+	@RequestMapping(value = "/activo/add", method = RequestMethod.POST)
+	public String addActivo(@RequestParam("activo") String nombreactivo,
+			@RequestParam("descripcion") String descripcion,
+			@RequestParam("tipo") String tipo,
+			@RequestParam("serial") String serial,
+			@RequestParam("numInventario") String numInventario,
+			@RequestParam("peso") String peso,
+			@RequestParam("alto") String alto,
+			@RequestParam("ancho") String ancho,
+			@RequestParam("largo") String largo,
+			@RequestParam("fechaCompra") String fechaCompra,
+			@RequestParam("fechaBaja") String fechaBaja, ModelMap model) {
+		
+		Activo a = this.setParameterNewActivo(nombreactivo, descripcion, tipo, serial, numInventario, peso, alto, ancho, fechaCompra, fechaBaja, largo);
+      
+		if(this.activeService.getActivoByName(nombreactivo) == null){
+			this.activeService.addActivo(a);
+		}
+
+		return "redirect:/activos";
+	}
+
+	public Activo setParameterNewActivo(String nombreactivo,
+			String descripcion, String tipo, String serial,
+			String numInventario, String peso, String alto, String ancho,
+			String fechaCompra, String fechaBaja, String largo) {
+		Activo act = new Activo();
+		act.setActivo(nombreactivo);
+		try {
+			act.setAlto(Float.parseFloat(alto));
+			act.setAncho(Float.parseFloat(ancho));
+			act.setLargo(Float.parseFloat(largo));
+			act.setPeso(Float.parseFloat(peso));
+		} catch (Exception e) {
+			logger.info("Error. Debe ser valores numéricos en los campos Alto, Ancho, Largo, Peso, Error Details=" + e);
+		}
+		act.setDescripcion(descripcion);		
+		act.setTipo(this.activeService.getTipoById(tipo));
+        act.setSerial(serial);        
+        act.setNumInventario(numInventario);                
+	    act.setFechaBaja(this.activeService.convertirStringToDate(fechaBaja));
+	    act.setFechaCompra(this.activeService.convertirStringToDate(fechaCompra));
+		
+		return act;
+	}
+	
+	
+
+	@RequestMapping("/remove/{id}")
+	public String removeActivo(@PathVariable("id") int id) {
+		this.activeService.removeActivo(id);
+		return "redirect:/activos";
+	}
+	
+	@RequestMapping("/activo/edit")
+	public String editar(@RequestParam("id") String id, @RequestParam("serial") String serial,
+			@RequestParam("fechaBaja") String fechaBaja,
+			Model model) {		
+		Activo a = this.activeService.getActivoById(Integer.parseInt(id));
+		a.setSerial(serial);
+		a.setFechaBaja(this.activeService.convertirStringToDate(fechaBaja));		
+		this.activeService.updateActivo(a);	   
+		return "redirect:/activos";
+	}
+
+	@RequestMapping("/edit/{id}")
+	public String editActivo(@PathVariable("id") int id, Model model) {		
+		model.addAttribute("activo", this.activeService.getActivoById(id));
+	    model.addAttribute("listActivos", this.activeService.listActivos());
+	    return "activo";
+	}
+
+	
+	@RequestMapping("/buscarActivos")
+	public String buscarController(Model model) {
+		model.addAttribute("activo", new Activo());
+		this.populateComboTipoActivoList(model);
+		return "buscar";
+	}
+	
+	@RequestMapping("/activo/buscar")
+	public String buscar(@RequestParam("fechaCompra") String fechaCompra, 
+			@RequestParam("serial") String serial, @RequestParam("tipo") String tipo,
+			Model model) {		
+		Filtro filtro = new Filtro();
+		
+		if(!this.activeService.validarFechas(this.activeService.convertirStringToDate(fechaCompra), this.activeService.getFechaHoraSistema())){
+			
+		}
+		if(!fechaCompra.isEmpty()){
+			filtro.setFechaCompra(fechaCompra);
+		}
+		if(!serial.isEmpty()){
+			filtro.setSerial(serial);
+		}
+		if(!tipo.isEmpty()){
+			filtro.setTipo(tipo);
+		}		
+		
+		model.addAttribute("activo", new Activo());
+		model.addAttribute("listActivos", this.activeService.filtrar(filtro));
+		this.populateComboTipoActivoList(model);
+		
+		return "buscar";
+	}
+	
+	public boolean validateFechas(String fechaDesde, String fechaHasta){
+		
+		return false;
+	}
+	
+
+}

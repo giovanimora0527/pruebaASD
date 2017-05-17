@@ -1,0 +1,8 @@
+package com.javaen.dao;
+
+import com.javaen.generic.GenericHibernateDao;
+import com.javaen.model.TipoActivo;
+
+public interface TipoActivoDao extends GenericHibernateDao<TipoActivo , Integer>  {
+	
+}

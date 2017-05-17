@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+package com.javaen.dao;
+
+/**
+ * @author giovanni
+ *
+ */
+public interface ActivosDao {
+
+	public void addActivo(Activo a);
+	public void updateActivo(Activo a);
+	public List<Activo> listPersons();
+	public Activo getActivoById(int id);
+	public void removePerson(int id);
+	
+}

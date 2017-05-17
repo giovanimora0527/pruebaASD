@@ -1,0 +1,15 @@
+package com.javaen.services;
+
+import java.util.List;
+
+import com.javaen.model.TipoActivo;
+
+public class ActivoServicesImpl implements ActivosServices {
+
+	 public List<TipoActivo> getTipoActivos(){
+		 
+		 
+	 }
+	 
+	 
+}

@@ -1,0 +1,16 @@
+package com.javaen.services;
+
+import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.javaen.model.TipoActivo;
+
+@Service
+public interface ActivosServices extends Serializable {   
+   
+    public List<TipoActivo> getTipoActivos() throws SQLException, Exception;
+    
+}

@@ -1,0 +1,65 @@
+package com.javaen.services;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.javaen.model.Activo;
+import com.javaen.model.TipoActivo;
+import com.javaen.dao.ActivosDao;
+
+public class ActiveServiceImpl implements ActiveService {
+
+	@Autowired
+	private ActivosDao activoDAO;
+	
+	public void setActivoDAO(ActivosDao activosDao) {
+		this.activoDAO = activosDao;
+	}
+	
+	@Override
+	@Transactional
+	public void addActivo(Activo a) {
+		this.activoDAO.addActivo(a);		
+	}
+
+	@Override
+	@Transactional
+	public void updateActivo(Activo a) {
+		this.activoDAO.updateActivo(a);
+	}
+
+	@Override
+	@Transactional
+	public List<Activo> listActivos() {
+		return this.activoDAO.listActivos();
+	}
+
+	@Override
+	@Transactional
+	public Activo getActivoById(int id) {
+		return this.activoDAO.getActivoById(id);
+	}
+
+	@Override
+	@Transactional
+	public void removeActivo(int id) {
+		this.activoDAO.removeActivo(id);		
+	}
+
+	@Override
+	@Transactional
+	public List<TipoActivo> listTipoActivos() {
+		return this.activoDAO.listTipoActivos();
+	}
+	
+	@Override
+	@Transactional
+	public List<TipoActivo> listEstados() {
+		return this.activoDAO.listEstados();
+	}
+
+	
+}

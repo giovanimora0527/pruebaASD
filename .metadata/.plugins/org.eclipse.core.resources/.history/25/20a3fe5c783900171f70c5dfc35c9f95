@@ -1,0 +1,5 @@
+package com.javaen.services;
+
+public class ActiveServiceImpl implements ActiveService {
+
+}

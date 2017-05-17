@@ -1,0 +1,51 @@
+package com.javaen.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="tipo_activo")
+public class TipoActivo implements java.io.Serializable {
+   
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int id;
+	private String tipo;
+	private String descripcion;
+	
+	private TipoActivo(){
+		
+	}
+	
+	@Id	
+	@Column(name="id")	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	@Column (name="nombre")	
+	public String getNombreTipo() {
+		return tipo;
+	}
+	
+	public void setNombreTipo(String nombre) {
+		this.tipo = nombre;
+	}
+
+	@Column (name="descripcion")
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+}

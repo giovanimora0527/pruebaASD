@@ -1,0 +1,25 @@
+package com.javaen.services;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
+import com.javaen.model.TipoActivo;
+
+@SuppressWarnings("serial")
+public class ActivoServicesImpl implements ActivosServices {
+	
+	private List<TipoActivo> listaActivos;
+	@Resource(name="jdbc/activosfijos")
+	private DataSource ds;
+
+    public List<TipoActivo> getTipoActivos() throws SQLException{    	
+    	
+		return listaActivos;		 
+	 }
+	 
+	 
+}

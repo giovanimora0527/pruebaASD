@@ -1,0 +1,49 @@
+package com.javaen.services;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import com.javaen.model.Activo;
+import com.javaen.dao.ActivosDao;
+
+public class ActiveServiceImpl implements ActiveService {
+
+	private ActivosDao activoDAO;
+	
+	public void setActivoDAO(ActivosDao activosDao) {
+		this.activoDAO = activosDao;
+	}
+	
+	@Override
+	@Transactional
+	public void addActivo(Activo a) {
+		this.activoDAO.addActivo(a);		
+	}
+
+	@Override
+	public void updateActivo(Activo a) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Activo> listActivos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Activo getActivoById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeActivo(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+}

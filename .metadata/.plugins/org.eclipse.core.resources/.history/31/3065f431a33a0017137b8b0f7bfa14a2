@@ -1,0 +1,48 @@
+package com.javaen.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="tipo_activo")
+public class TipoActivo {
+   
+	
+	private int tipId;
+	private String tipo;
+	private String descripcion;
+	
+	private TipoActivo(){
+		
+	}
+	
+	@Id	
+	@Column(name="tip_id")	
+	public int getTipoId() {
+		return tipId;
+	}
+	
+	public void setTipoId(int id) {
+		this.tipId = id;
+	}
+	
+	@Column (name="nombre")	
+	public String getTipo() {
+		return tipo;
+	}
+	
+	public void setTipo(String nombre) {
+		this.tipo = nombre;
+	}
+
+	@Column (name="descripcion")
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+}

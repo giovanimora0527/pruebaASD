@@ -1,0 +1,5 @@
+package com.javaen.enumerated.copy;
+
+public enum estados {
+
+}

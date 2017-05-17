@@ -1,0 +1,119 @@
+package com.javaen.generic;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+ 
+
+import org.apache.commons.logging.impl.Log4JLogger;
+import org.hibernate.LockMode;
+import org.hibernate.SessionFactory;
+ 
+
+public abstract class GenericHibernateDaoImpl <T extends Serializable, E> extends HibernateDaoSupport implements GenericHibernateDao<T, E>  {
+	
+	 
+	 private static final Log4JLogger logger = new Log4JLogger();
+	 private SessionFactory sessionFactory;
+	 
+	 public SessionFactory getSessionFactory() {
+	        return sessionFactory;}
+	 
+	 public void setSessionFactory(SessionFactory sessionFactory) {
+	         this.sessionFactory = sessionFactory;
+	 }
+	  
+	 public void deleteAll(Collection<T> instances) throws Exception {
+	  try {
+	   logger.info("Ejecutando metodo deleteAll");
+	            getSessionFactory().getCurrentSession().delete(instances);
+	            logger.info("Fin del metodo deleteAll");
+	        } catch (final Exception e) {
+	         logger.error(Thread.currentThread().getStackTrace()[1].getMethodName(), e);
+	            throw e;
+	        }
+	 }
+	 
+		 
+	 @SuppressWarnings("unchecked")
+	public E save(T instance) throws Exception {
+	  try {
+	   logger.info("Ejecutando metodo " + Thread.currentThread().getStackTrace()[1].getMethodName() );
+	            return (E) getSessionFactory().getCurrentSession().save(instance);
+	        } catch (final Exception e) {
+	         logger.error(Thread.currentThread().getStackTrace()[1].getMethodName(), e);
+	            throw e;
+	        }
+	 }
+	 
+	 public void saveOrUpdateAll(Collection<T> instances) throws Exception {
+	  try {
+	   logger.info("Ejecutando metodo " + Thread.currentThread().getStackTrace()[1].getMethodName() );
+	        getSessionFactory().getCurrentSession().saveOrUpdate(instances);
+	        } catch (final Exception e) {
+	         logger.error(Thread.currentThread().getStackTrace()[1].getMethodName(), e);
+	            throw e;
+	        } 
+	 }
+	 
+	 public void saveOrUpdate(T instance) throws Exception {
+	  try {
+	   logger.info("Ejecutando metodo " + Thread.currentThread().getStackTrace()[1].getMethodName() );
+	            getHibernateTemplate().saveOrUpdate(instance);
+	        } catch (final Exception e) {
+	         logger.error(Thread.currentThread().getStackTrace()[1].getMethodName(), e);
+	            throw e;
+	        }
+	   
+	 }
+	 
+	 public void persist(T transientInstance) throws Exception {
+	  try {
+	   logger.info("Ejecutando metodo " + Thread.currentThread().getStackTrace()[1].getMethodName() );
+	            getHibernateTemplate().persist(transientInstance);
+	        } catch (final Exception e) {
+	         logger.error(Thread.currentThread().getStackTrace()[1].getMethodName(), e);
+	            throw e;
+	        }
+	   
+	 }
+	 
+		 
+	 public void delete(T persistentInstance) throws Exception {
+	  try {
+	   logger.info("Ejecutando metodo " + Thread.currentThread().getStackTrace()[1].getMethodName() );
+	            getHibernateTemplate().delete(persistentInstance);
+	        } catch (final Exception e) {
+	         logger.error(Thread.currentThread().getStackTrace()[1].getMethodName(), e);
+	            throw e;
+	        }
+	   
+	 }
+	 
+	 public List<T> findByExample(T instance) throws Exception {
+	  try {
+	   logger.info("Ejecutando metodo " + Thread.currentThread().getStackTrace()[1].getMethodName() );
+	            final List<T> results = getHibernateTemplate().findByExample(instance);
+	            return results;
+	        } catch (final Exception e) {
+	         logger.error(Thread.currentThread().getStackTrace()[1].getMethodName(), e);
+	            throw e;
+	        }
+	 }
+	 
+	 public List<T> findByQuery(String query) throws Exception {
+	  try {
+	   logger.info("Ejecutando metodo " + Thread.currentThread().getStackTrace()[1].getMethodName() );
+	            final List<T> results = getHibernateTemplate().find(query);
+	            return results;
+	        } catch (final Exception e) {
+	         logger.error(Thread.currentThread().getStackTrace()[1].getMethodName(), e);
+	            throw e;
+	        }
+	 }	 	 
+	  
+	 public abstract List<T> findAll() throws Exception;
+	    public abstract T findById(E id) throws Exception; 
+	 
+	}
+
+}

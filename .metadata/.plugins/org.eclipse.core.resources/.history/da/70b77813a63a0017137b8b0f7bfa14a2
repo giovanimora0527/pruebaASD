@@ -1,0 +1,22 @@
+package com.javaen.controller;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+
+import com.javaen.services.ActiveService;
+
+@Controller
+public class SearchController {
+
+	protected final Log logger = LogFactory.getLog(getClass());
+	private ActiveService activeService;
+	
+	@Autowired(required = true)
+	@Qualifier(value = "activeService")
+	public void setActivoService(ActiveService as) {
+		this.activeService = as;
+	}
+}

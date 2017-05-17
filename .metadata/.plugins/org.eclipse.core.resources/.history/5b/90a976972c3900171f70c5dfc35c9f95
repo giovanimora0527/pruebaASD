@@ -1,0 +1,15 @@
+package com.javaen.dao;
+import java.util.List;
+
+import org.apache.commons.logging.impl.Log4JLogger;
+import org.hibernate.SessionFactory;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
+import com.javaen.generic.GenericHibernateDaoImpl;
+ 
+
+public class TipoActivoDaoImpl extends GenericHibernateDaoImpl<TipoActivo , Integer> implements TipoActivoDao {
+
+	
+}

@@ -1,0 +1,41 @@
+package com.javaen.controller;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import com.javaen.model.TipoActivo;
+import com.javaen.services.ActiveService;
+
+@Controller
+public class SearchController {
+
+	protected final Log logger = LogFactory.getLog(getClass());
+	private ActiveService activeService;
+
+	@Autowired(required = true)
+	@Qualifier(value = "activeService")
+	public void setActivoService(ActiveService as) {
+		this.activeService = as;
+	}
+
+	public void populateComboTipoActivoList(Model model) {
+
+		// LLenando el combo de tipo del activo
+		Map<String, String> activoList = new LinkedHashMap<String, String>();
+		List<TipoActivo> activos = this.activeService.listTipoActivos();
+		if (activos.size() > 0) {
+			for (TipoActivo o : activos) {
+				activoList.put("" + o.getId(), o.getTipo());
+			}
+			model.addAttribute("activoTipo", activoList);
+		}
+	}
+}

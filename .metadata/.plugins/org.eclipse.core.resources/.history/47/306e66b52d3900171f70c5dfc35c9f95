@@ -1,0 +1,22 @@
+package com.javaen.services;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.javaen.dao.TipoActivoDao;
+import com.javaen.model.TipoActivo;
+
+@SuppressWarnings("serial")
+public class ActivoServicesImpl implements ActivosServices {
+	
+	private List<TipoActivo> listaActivos;	
+	
+	private TipoActivoDao tipodao;
+
+    public List<TipoActivo> getTipoActivos() throws Exception{ 
+    	String query = "";
+		return tipodao.findByQuery(query);			 
+	 }
+	 
+	 
+}

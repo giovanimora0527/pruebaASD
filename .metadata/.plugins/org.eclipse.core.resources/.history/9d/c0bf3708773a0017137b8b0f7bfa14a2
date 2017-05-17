@@ -1,0 +1,11 @@
+package com.javaen.enumerated;
+
+public enum estados {
+  
+	D ("DISPONIBLE"), 
+    A ("ACTIVO"),
+    R("EN REPARACION"),
+    B ("DE BADA"),
+    AS ("ASIGNADO");  
+	
+}

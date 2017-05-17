@@ -1,0 +1,18 @@
+package com.javaen.enumerated;
+
+public enum estados {
+  
+	D ("DISPONIBLE"), 
+    A ("ACTIVO"),
+    R("EN REPARACION"),
+    B ("DE BADA"),
+    AS ("ASIGNADO");
+		
+	private final String Estado;
+	
+	 (String color, int pesoEspecifico) { 
+        this.color = color;
+        this.pesoEspecifico = pesoEspecifico;
+    } 
+	
+}

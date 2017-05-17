@@ -1,0 +1,147 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page session="false"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"
+	rel="stylesheet"></link>
+<title>Activos Fijos</title>
+</head>
+<body>
+	<br>	
+	<div class="container">
+		<div class="row">
+			<h1>Módulo de creación de activos</h1>
+			<label>Ingrese los datos a continuación</label>
+		</div>
+	</div>
+    <c:url var="addAction" value="/activo/add"></c:url>
+	<div class="container">
+		<form:form action="${addAction}" commandName="activo">
+			<table class="table table-bordered table-condensed table-stripped">
+				<tr>
+					<td><b>* NOMBRE</b></td>
+					<td><input id="nombretext" class="form-control"
+						required="true" /></td>
+					<td><b>DESCRIPCION</b></td>
+					<td><textarea id="descripciontext" class="form-control"
+							rows="3" cols="20" style="overflow: auto; resize: none"></textarea>
+					</td>
+					<td><b>* TIPO DE ACTIVO</b></td>
+					<td><form:select path="nombre" cssClass="form-control"
+							id="tipoActivoSelect">
+							<form:option value="NONE" label="--- Seleccione una opción ---" />
+							<form:options items="${activoTipo}" />
+						</form:select></td>
+				</tr>
+				<tr>
+					<td><b>* SERIAL</b></td>
+					<td colspan="3"><input id="serialtext" class="form-control"
+						required="true" /></td>
+					<td><b>* NUMERO DE INVENTARIO</b></td>
+					<td colspan="3"><input id="numinventext" class="form-control"
+						required="true" /></td>
+				</tr>
+				<tr>
+					<td><b>PESO</b></td>
+					<td><input id="pesotext" class="form-control" /></td>
+					<td><b>ALTO</b></td>
+					<td><input id="altotext" class="form-control" /></td>
+					<td><b>ANCHO</b></td>
+					<td><input id="anchotext" class="form-control" /></td>
+				</tr>
+				<tr>
+					<td><b>* FECHA DE COMPRA</b></td>
+					<td><input id="fechacompra" type="date" class="form-control"
+						required="true" /></td>
+					<td><b>FECHA DE BAJA</b></td>
+					<td><input id="fechabaja" type="date" class="form-control" />
+					</td>
+					<td><b>Estado</b></td>
+					<td><form:select path="nombre" cssClass="form-control"
+							id="estadoSelect">
+							<form:option value="NONE" label="--- Seleccione una opción ---" />
+							<form:options items="${estados}" />
+						</form:select></td>
+				</tr>
+				<tr>
+					<td colspan="8">
+					<input type="submit" class="btn btn-primary" onclick="validar()" 
+					       value="<spring:message text="Guardar"/>" />
+					</td>
+				</tr>
+			</table>
+		</form:form>
+
+		<br> <br>
+		<h3>Lista de Activos</h3>
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Serial</th>
+					<th>Núm. Inventario</th>
+					<th>Fecha de Compra</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${listActivos}" var="activo">
+					<tr>
+						<td>${activo.id}</td>
+						<td>${activo.nombre}</td>
+						<td>${activo.serial}</td>
+						<td>${activo.numInventario}</td>
+						<td>${activo.fechaCompra}</td>						
+						<td align="center">
+						   <a href="<c:url value='/edit/${activo.id}' />"> <span class="glyphicon glyphicon-edit" ></span></a>
+						   <a href="<c:url value='/remove/${activo.id}' />"><span class="glyphicon glyphicon-remove" ></span></a>
+						</td>
+						
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+
+
+</body>
+<script src="webjars/jquery/3.2.0/jquery.js"></script>
+<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+<script>
+	function validar() {
+		if (document.getElementById("nombretext").value == "") {
+			alert("Debe escribir el nombre del activo.");
+			document.getElementById("nombretext").focus();
+			return 0;
+		}
+		if (document.getElementById("tipoActivoSelect").selectedIndex == 0) {
+			alert("Debe seleccionar una opción para el tipo de activo");
+			document.getElementById("tipoActivoSelect").focus();
+			return 0;
+		}
+		if (document.getElementById("serialtext").value == "") {
+			alert("Debe escribir el serial del activo.");
+			document.getElementById("serialtext").focus();
+			return 0;
+		}
+		if (document.getElementById("numinventext").value == "") {
+			alert("Debe escribir el Número de Inventario del activo.");
+			document.getElementById("numinventext").focus();
+			return 0;
+		}
+		if (document.getElementById("fechacompra").value == "") {
+			alert("Debe seleccionar la fecha de compra del activo.");
+			document.getElementById("fechacompra").focus();
+			return 0;
+		}
+
+	}
+</script>
+</html>

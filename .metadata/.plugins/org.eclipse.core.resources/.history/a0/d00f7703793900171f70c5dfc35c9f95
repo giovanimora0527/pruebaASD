@@ -1,0 +1,14 @@
+package com.javaen.dao;
+import java.util.List;
+import com.javaen.model.Activo;
+
+
+public interface ActivosDao {
+	
+	public void addActivo(Activo a);
+	public void updateActivo(Activo a);
+	public List<Activo> listActivos();
+	public Activo getActivoById(int id);
+	public void removePerson(int id);
+	
+}

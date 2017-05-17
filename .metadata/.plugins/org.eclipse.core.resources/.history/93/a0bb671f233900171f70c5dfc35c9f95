@@ -1,0 +1,33 @@
+package com.javaen.generic;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+ 
+import org.hibernate.criterion.DetachedCriteria;
+
+ 
+public interface GenericHibernateDao<T extends Serializable, E> {
+	
+    public void deleteAll(Collection<T> instances) throws Exception;
+    
+    public int bulkUpdate(String query) throws Exception;
+    
+    public E save(T instance) throws Exception;
+    
+    public void saveOrUpdateAll(Collection<T> instances) throws Exception;
+    
+    public void saveOrUpdate(T instance) throws Exception;
+    
+    public void persist(T transientInstance) throws Exception;    
+    
+    public void delete(T persistentInstance) throws Exception;
+    
+    public List<T> findByExample(T instance) throws Exception;
+    
+    public List<T> findByQuery(String query) throws Exception;
+   
+    public List<T> findAll() throws Exception;
+    
+    public T findById(E id) throws Exception;
+}
